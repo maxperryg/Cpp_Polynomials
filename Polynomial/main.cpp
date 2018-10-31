@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 
@@ -21,11 +22,30 @@ public:
             coefficients[i]=0;
         }
     }
+    Polynomial(string p){
+        
+        for (int i=1; i<p.length(); i++) {
+            int degree;
+            stringstream(p.substr(i,1))>>degree;
+            int coef;
+            stringstream(p.substr(i-1,1))>>coef;
+            coefficients[degree]=coef;
+        }
+        cout<<coefficients;
+    }
 };
 
 int main() {
-    ofstream myfile;
-    myfile.open("Numbers.txt");
+    string line;
+    ifstream myfile ("Numbers.txt");
+    if(myfile.is_open()){
+        while(getline(myfile,line)){
+            Polynomial left(line);
+            getline(myfile,line);
+            Polynomial right(line);
+        }
+        myfile.close();
+    }
     
     return 0;
 }
