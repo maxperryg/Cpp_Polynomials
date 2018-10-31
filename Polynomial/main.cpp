@@ -7,9 +7,25 @@
 //
 
 #include <iostream>
+#include <fstream>
+using namespace std;
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+
+class Polynomial{
+private:
+    //if coefficient[3] is 5, that term willbe 5X^3
+    int coefficients[100];
+public:
+    Polynomial(){
+        for(int i=0;i<100; i++){
+            coefficients[i]=0;
+        }
+    }
+};
+
+int main() {
+    ofstream myfile;
+    myfile.open("Numbers.txt");
+    
     return 0;
 }
