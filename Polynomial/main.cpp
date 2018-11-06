@@ -37,13 +37,37 @@ using namespace std;
 //};
 
 void constructPolynomial(int polynomial[], string line){
-    for (int i=1; i<line.length(); i++) {
+    for (int i=1; i<line.length(); i+=2) {
         int degree;
         stringstream(line.substr(i,1))>>degree;
         int coef;
         stringstream(line.substr(i-1,1))>>coef;
         polynomial[degree]=coef;
     }
+}
+
+void printPoly(int polynomial[]){
+    stringstream convert;
+    string ans="";
+    for(int i = 99; i>=0; i--){
+        if(polynomial[i] == 0){
+            continue;
+        }
+        else if (polynomial[i] == 1){
+            convert<<"+ X"<<i;
+        }
+        else if (i==1){
+            convert<<"+"<<polynomial[i]<<"X";
+        }
+        else if (i==0){
+            convert<<"+"<<polynomial[i];;
+        }
+        else{
+            convert<<"+"<<polynomial[i]<<"X"<<i;
+        }
+    }
+    
+    cout<<convert.str()<<endl;
 }
 
 int main() {
@@ -56,12 +80,13 @@ int main() {
             left[i]=0;
             right[i]=0;
         }
+        
         constructPolynomial(left, line);
-        for(int i=0; i<10;i++){
-            cout<<left[i]<<"X"<<i<<endl;
-        }
         getline(myfile,line);
         constructPolynomial(right, line);
+        
+        printPoly(left);
+        printPoly(right);
     }
     myfile.close();
     
