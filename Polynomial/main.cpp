@@ -37,12 +37,26 @@ using namespace std;
 //};
 
 void constructPolynomial(int polynomial[], string line){
-    for (int i=1; i<line.length(); i+=2) {
-        int degree;
-        stringstream(line.substr(i,1))>>degree;
-        int coef;
-        stringstream(line.substr(i-1,1))>>coef;
-        polynomial[degree]=coef;
+    for (int i=0; i<line.length(); i++) {
+        int degree = 0;
+        int coef = 0;
+        string sub = "";
+        
+        if(line.substr(i,1) == "-"){
+            stringstream(line.substr(i,2))>>coef;
+            stringstream(line.substr(i+2,1))>>degree;
+            polynomial[degree]+=coef;
+            i+=2;
+            continue;
+        }
+        else{
+            sub = line.substr(i,1);
+            stringstream(sub)>>coef;
+            sub = line.substr((i+1),1);
+            stringstream(sub)>>degree;
+            polynomial[degree]+=coef;
+            i+=1;
+        }
     }
 }
 
@@ -53,21 +67,38 @@ void printPoly(int polynomial[]){
         if(polynomial[i] == 0){
             continue;
         }
-        else if (polynomial[i] == 1){
-            convert<<"+ X"<<i;
+        
+        //if negative
+        //-1 is a special case, otherwise just print the negative coefficient
+        if(polynomial[i]<0){
+            if (polynomial[i] == -1){
+                convert<<"-";
+            }
+            else convert<<polynomial[i];
         }
-        else if (i==1){
-            convert<<"+"<<polynomial[i]<<"X";
+        
+        //if positive
+        //1 is a special case
+        if(polynomial[i]>0){
+            if (polynomial[i] == 1){
+                convert<<"+";
+            }
+            else convert<<"+"<<polynomial[i];
+        }
+        
+        if (i==1){
+            convert<<"X";
         }
         else if (i==0){
-            convert<<"+"<<polynomial[i];;
+            convert<<"";
         }
-        else{
-            convert<<"+"<<polynomial[i]<<"X"<<i;
-        }
+        else
+            convert<<"X"<<i;
     }
     
-    cout<<convert.str()<<endl;
+    ans =convert.str();
+    if(ans.substr(0,1) == "+") ans = ans.substr(1);
+    cout<<ans<<endl;
 }
 
 int main() {
