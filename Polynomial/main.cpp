@@ -93,7 +93,7 @@ void printPoly(int polynomial[]){
             convert<<"";
         }
         else
-            convert<<"X"<<i;
+            convert<<"X^"<<i;
     }
     
     ans =convert.str();
