@@ -101,6 +101,36 @@ void printPoly(int polynomial[]){
     cout<<ans<<endl;
 }
 
+void addPoly(int left[], int right[]){
+    int ans[100];
+    for(int i=99;i>=0;i--){
+        ans[i]= left[i]+right[i];
+    }
+    printPoly(ans);
+}
+
+void subtractPoly(int left[], int right[]){
+    for(int i=0;i<100;i++){
+        if(right[i]<0) right[i]*=-1;
+    }
+    addPoly(left, right);
+}
+
+void multiplyPoly(int left[], int right[]){
+    int ans[100];
+    for(int i = 99; i>=0; i--)ans[i]=0;
+    for(int i = 99; i>=0; i--){
+        if(left[i]!=0){
+            for(int j=99; j>=0;j--){
+                if(right[j]!=0){
+                    ans[i+j] += left[i]*right[j];
+                }
+            }
+        }
+    }
+    printPoly(ans);
+}
+
 int main() {
     string line;
     ifstream myfile ("/Users/MaxGrossman/Documents/C++WorkSpace/Polynomial/Polynomial/en.lproj/Numbers.txt");
@@ -118,6 +148,10 @@ int main() {
         
         printPoly(left);
         printPoly(right);
+        
+        addPoly(left, right);
+        subtractPoly(left, right);
+        multiplyPoly(left, right);
     }
     myfile.close();
     
