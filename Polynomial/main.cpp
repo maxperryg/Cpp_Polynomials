@@ -98,6 +98,7 @@ void printPoly(int polynomial[]){
     
     ans =convert.str();
     if(ans.substr(0,1) == "+") ans = ans.substr(1);
+    if(ans == "") cout<<0;
     cout<<ans<<endl;
 }
 
@@ -110,10 +111,11 @@ void addPoly(int left[], int right[]){
 }
 
 void subtractPoly(int left[], int right[]){
-    for(int i=0;i<100;i++){
-        if(right[i]<0) right[i]*=-1;
+    int ans[100];
+    for(int i=99;i>=0;i--){
+        ans[i]= left[i]-right[i];
     }
-    addPoly(left, right);
+    printPoly(ans);
 }
 
 void multiplyPoly(int left[], int right[]){
